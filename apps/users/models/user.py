@@ -27,9 +27,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.groups.filter(name="admin").exists()
 
     @property
-    def is_staff(self):
+    def is_staff_user(self):
         return self.groups.filter(name="staff").exists()
 
     @property
-    def is_staff(self):
+    def is_customer(self):
         return self.groups.filter(name="customer").exists()
