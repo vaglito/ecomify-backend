@@ -42,7 +42,9 @@ BASE_DEPENDENCIES = [
     "django.contrib.staticfiles",
 ]
 
-APPS = []
+APPS = [
+    "apps.users.apps.UsersConfig",
+]
 
 DEPENDENCIES = []
 
