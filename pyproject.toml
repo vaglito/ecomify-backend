@@ -3,7 +3,7 @@ name = "ecomify"
 version = "0.1.0"
 description = "A modern e-commerce backend featuring a robust RESTful API powered by Django and DRF."
 authors = [
-    {name = "Cesar Gonzalez",email = "cesargonzalez390@gmail.com"}
+    {name = "Cesar Gonzalez", email = "cesargonzalez390@gmail.com"}
 ]
 license = {text = "MIT"}
 readme = "README.md"
@@ -15,7 +15,8 @@ dependencies = [
     "pillow (>=12.0.0,<13.0.0)",
     "django-filter (>=25.2,<26.0)",
     "djangorestframework-simplejwt (>=5.5.1,<6.0.0)",
-    "drf-yasg (>=1.21.11,<2.0.0)"
+    "drf-yasg (>=1.21.11,<2.0.0)",
+    "dj-database-url (>=2.2.0,<3.0.0)"
 ]
 
 [tool.poetry]
