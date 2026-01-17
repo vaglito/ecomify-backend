@@ -37,6 +37,7 @@ else:
 
 # Application definition
 BASE_DEPENDENCIES = [
+    "jet",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -45,9 +46,7 @@ BASE_DEPENDENCIES = [
     "django.contrib.staticfiles",
 ]
 
-APPS = [
-    "apps.users.apps.UsersConfig",
-]
+APPS = ["apps.users.apps.UsersConfig", "apps.products.apps.ProductsConfig"]
 
 DEPENDENCIES = ["rest_framework", "django_filters", "drf_yasg"]
 
@@ -103,13 +102,10 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 
 # Default to SQLite if no DATABASE_URL env var is found
-default_db_url = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+default_db_url = "sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3")
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=default_db_url,
-        conn_max_age=600
-    )
+    "default": dj_database_url.config(default=default_db_url, conn_max_age=600)
 }
 
 
@@ -144,3 +140,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+
+JET_SIDE_MENU_COMPACT = True
