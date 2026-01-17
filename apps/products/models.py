@@ -39,14 +39,13 @@ class Marca(models.Model):
 class Producto(models.Model):
     nombre = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
-    descripcion = models.TextField()
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    descripcion = models.TextField(blank=True, null=True)
+    precio = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     precio_original = models.DecimalField(
         max_digits=10, decimal_places=2, null=True, blank=True
     )
     sku = models.CharField(max_length=50, unique=True)
     stock = models.IntegerField(default=0)
-    imagen = models.ImageField(upload_to="productos/")
     categoria = models.ForeignKey(
         Categoria, on_delete=models.CASCADE, related_name="productos"
     )
