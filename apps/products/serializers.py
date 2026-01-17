@@ -68,6 +68,6 @@ class ProductoSerializer(serializers.ModelSerializer):
 
     def get_descuento_porcentaje(self, obj):
         if obj.precio_original and obj.precio_original > obj.precio:
-            descuento = ((obj.originalPrice - obj.price) / obj.originalPrice) * 100
+            descuento = ((obj.precio_original - obj.precio) / obj.precio_original) * 100
             return round(descuento)
         return 0
