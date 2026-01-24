@@ -1,6 +1,7 @@
 import os
 from django.db import models
 from django.utils.text import slugify
+from ckeditor.fields import RichTextField
 
 
 def product_image_upload_path(instance, filename):
@@ -85,8 +86,7 @@ class Especificacion(models.Model):
     producto = models.ForeignKey(
         Producto, on_delete=models.CASCADE, related_name="especificaciones"
     )
-    titulo = models.CharField(max_length=100, help_text="Ej: Velocidad de impresión")
-    valor = models.CharField(max_length=255, help_text="Ej: 30 ppm (Color y B/N)")
+    contenido = RichTextField()
     orden = models.IntegerField(default=0)
 
     class Meta:
@@ -95,4 +95,4 @@ class Especificacion(models.Model):
         ordering = ["orden"]
 
     def __str__(self):
-        return f"{self.titulo}: {self.valor}"
+        return f"Especificación del producto {self.producto.nombre}"

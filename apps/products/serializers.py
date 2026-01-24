@@ -27,7 +27,7 @@ class ProductoImagenSerializer(serializers.ModelSerializer):
 class EspecificacionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Especificacion
-        fields = ["id", "titulo", "valor", "orden"]
+        fields = ["id", "contenido", "orden"]
 
 
 # 5. Serializador Principal de Producto

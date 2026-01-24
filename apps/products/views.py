@@ -1,4 +1,5 @@
 from rest_framework import viewsets, pagination
+from rest_framework.filters import SearchFilter
 from django_filters import rest_framework as filters
 from .models import Producto, Marca, Categoria
 from .serializers import ProductoSerializer, CategoriaSerializer, MarcaSerializer
@@ -30,8 +31,9 @@ class StandardResultsSetPagination(pagination.PageNumberPagination):
 class ProductoViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Producto.objects.all().order_by("-fecha_creacion")
     serializer_class = ProductoSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = (filters.DjangoFilterBackend, SearchFilter)
     filterset_class = ProductoFilter
+    search_fields = ["nombre", "descripcion", "sku", "marca__nombre", "categoria__nombre"]
     pagination_class = StandardResultsSetPagination
     lookup_field = "slug"  # Para que el detalle use /products/[slug]
 

@@ -24,10 +24,10 @@ class ProductoImagenInline(admin.TabularInline):
         return "Sin imagen"
 
 
-class EspecificacionInline(admin.TabularInline):
+class EspecificacionInline(admin.StackedInline):
     model = Especificacion
-    extra = 5  # Espacios vacíos para specs
-    fields = ("titulo", "valor", "orden")
+    extra = 1  # Espacios vacíos para specs
+    fields = ("contenido", "orden")
 
 
 # --- CONFIGURACIÓN DE MODELOS ---

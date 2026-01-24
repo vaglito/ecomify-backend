@@ -48,7 +48,7 @@ BASE_DEPENDENCIES = [
 
 APPS = ["apps.users.apps.UsersConfig", "apps.products.apps.ProductsConfig"]
 
-DEPENDENCIES = ["rest_framework", "django_filters", "drf_yasg"]
+DEPENDENCIES = ["rest_framework", "django_filters", "drf_yasg", "ckeditor"]
 
 INSTALLED_APPS = BASE_DEPENDENCIES + DEPENDENCIES + APPS
 
