@@ -1,49 +1,14 @@
-import os
 from django.db import models
 from django.utils.text import slugify
 from ckeditor.fields import RichTextField
-
+from .categories import Category, SubCategory
+from .brands import Brand
 
 def product_image_upload_path(instance, filename):
     # 'instance' will be an instance of ProductImage
     # The Product ID is obtained through the FK relation
     # Structure: products/id_123/filename.jpg
     return f"products/id_{instance.product.id}/{filename}"
-
-
-class Category(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Nombre")
-    slug = models.SlugField(unique=True, blank=True)
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "Categoría"
-        verbose_name_plural = "Categorías"
-
-
-class Brand(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Nombre")
-    slug = models.SlugField(unique=True, blank=True)
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "Marca"
-        verbose_name_plural = "Marcas"
-
 
 class Product(models.Model):
     name = models.CharField(max_length=200, verbose_name="Nombre")
@@ -60,14 +25,22 @@ class Product(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="products", verbose_name="Categoría"
     )
+    subcategory = models.ForeignKey(
+        SubCategory, on_delete=models.SET_NULL, null=True, blank=True, related_name="products", verbose_name="Subcategoría"
+    )
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name="products", verbose_name="Marca")
     is_new = models.BooleanField(default=True, verbose_name="Es Nuevo")
     on_sale = models.BooleanField(default=False, verbose_name="En Oferta")
+    
+    # SEO Fields
+    meta_title = models.CharField(max_length=255, blank=True, null=True, verbose_name="Meta Título (SEO)")
+    meta_description = models.TextField(blank=True, null=True, verbose_name="Meta Descripción (SEO)")
+    meta_keywords = models.CharField(max_length=255, blank=True, null=True, verbose_name="Meta Keywords (SEO)")
+    
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Creación")
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
+        self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
     def __str__(self):
