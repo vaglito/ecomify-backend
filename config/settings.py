@@ -46,7 +46,7 @@ BASE_DEPENDENCIES = [
     "django.contrib.staticfiles",
 ]
 
-APPS = ["apps.users.apps.UsersConfig", "apps.products.apps.ProductsConfig", "apps.orders.apps.OrdersConfig", "apps.payments.apps.PaymentsConfig", "apps.core.apps.CoreConfig"]
+APPS = ["apps.users.apps.UsersConfig", "apps.products.apps.ProductsConfig", "apps.orders.apps.OrdersConfig", "apps.payments.apps.PaymentsConfig", "apps.core.apps.CoreConfig", "apps.claims.apps.ClaimsConfig"]
 
 DEPENDENCIES = ["rest_framework", "django_filters", "drf_yasg", "ckeditor"]
 
