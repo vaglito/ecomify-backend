@@ -48,7 +48,7 @@ BASE_DEPENDENCIES = [
 
 APPS = ["apps.users.apps.UsersConfig", "apps.products.apps.ProductsConfig", "apps.orders.apps.OrdersConfig", "apps.payments.apps.PaymentsConfig", "apps.core.apps.CoreConfig", "apps.claims.apps.ClaimsConfig"]
 
-DEPENDENCIES = ["rest_framework", "django_filters", "drf_yasg", "ckeditor"]
+DEPENDENCIES = ["rest_framework", "django_filters", "drf_yasg", "ckeditor", "corsheaders"]
 
 INSTALLED_APPS = BASE_DEPENDENCIES + DEPENDENCIES + APPS
 
@@ -67,8 +67,11 @@ SIMPLE_JWT = {
 }
 
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",

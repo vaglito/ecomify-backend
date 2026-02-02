@@ -1,5 +1,5 @@
 from rest_framework import viewsets, pagination
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters import rest_framework as filters
 from .models import Product, Brand, Category, SubCategory
 from .serializers import ProductSerializer, CategorySerializer, BrandSerializer, SubCategorySerializer
@@ -32,9 +32,10 @@ class StandardResultsSetPagination(pagination.PageNumberPagination):
 class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Product.objects.all().order_by("-created_at")
     serializer_class = ProductSerializer
-    filter_backends = (filters.DjangoFilterBackend, SearchFilter)
+    filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
     filterset_class = ProductFilter
     search_fields = ["name", "description", "sku", "brand__name", "category__name", "subcategory__name"]
+    ordering_fields = ["price", "created_at", "name", "statistics__visits"]
     pagination_class = StandardResultsSetPagination
     lookup_field = "slug"  # For detail view to use /products/[slug]
 
