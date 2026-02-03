@@ -16,13 +16,18 @@ class PaymentCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Orden no encontrada o no pertenece al usuario.")
         
         if hasattr(order, 'payment'):
-            raise serializers.ValidationError("Esta orden ya tiene un pago registrado.")
+            if order.payment.status != 'rejected':
+                raise serializers.ValidationError("Esta orden ya tiene un pago registrado y no ha sido rechazado.")
             
         return value
 
     def create(self, validated_data):
         order_id = validated_data.pop('order_id')
         order = Order.objects.get(id=order_id)
+        
+        # If there is a rejected payment, delete it to replace with new one
+        if hasattr(order, 'payment') and order.payment.status == 'rejected':
+            order.payment.delete()
         
         # Determine amount from order total
         amount = order.total_amount

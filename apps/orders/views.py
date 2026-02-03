@@ -1,4 +1,5 @@
 from rest_framework import viewsets, permissions, status
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db import transaction
 from .models import Order, OrderItem
@@ -23,6 +24,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         
         items_data = serializer.validated_data['items']
         shipping_address = serializer.validated_data['shipping_address']
+        phone = serializer.validated_data['phone']
         
         try:
             with transaction.atomic():
@@ -34,6 +36,7 @@ class OrderViewSet(viewsets.ModelViewSet):
                 order = Order.objects.create(
                     user=request.user,
                     shipping_address=shipping_address,
+                    phone=phone,
                     total_amount=0 # Will update later
                 )
 
@@ -75,3 +78,33 @@ class OrderViewSet(viewsets.ModelViewSet):
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({"error": "Error al procesar la orden."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    @action(detail=True, methods=['post'])
+    def cancel(self, request, pk=None):
+        order = self.get_object()
+        
+        if order.status in ['shipped', 'delivered', 'cancelled']:
+            return Response(
+                {"error": f"No se puede cancelar una orden en estado '{order.get_status_display()}'."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            
+        try:
+            with transaction.atomic():
+                # Restore stock for each item
+                for item in order.items.all():
+                    product = item.product
+                    # Use select_for_update inside transaction if possible, but strict locking 
+                    # might be overkill here unless high concurrency. 
+                    # Simpler to just increment.
+                    product.stock += item.quantity
+                    product.save()
+
+                order.status = 'cancelled'
+                order.save()
+        except Exception as e:
+            return Response(
+                {"error": f"Error al cancelar la orden: {str(e)}"}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+        
+        return Response({"message": "Orden cancelada exitosamente y stock restaurado."}, status=status.HTTP_200_OK)

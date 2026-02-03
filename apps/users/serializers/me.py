@@ -17,6 +17,7 @@ class MeSerializer(serializers.ModelSerializer):
             "email",
             "first_name",
             "last_name",
+            "phone",
             "is_admin",
             "is_staff_user",
             "is_customer",

@@ -45,6 +45,7 @@ class ProductSerializer(serializers.ModelSerializer):
     # Nested relationships (read from related models)
     images = ProductImageSerializer(many=True, read_only=True)
     specifications = SpecificationSerializer(many=True, read_only=True)
+    image = serializers.SerializerMethodField()
 
     # Read-only fields to show names instead of IDs
     category_name = serializers.ReadOnlyField(source="category.name")
@@ -58,6 +59,7 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = [
             "id",
+            "image",
             "name",
             "slug",
             "description",
@@ -99,6 +101,15 @@ class ProductSerializer(serializers.ModelSerializer):
         if hasattr(obj, "statistics"):
             return obj.statistics.sales
         return 0
+
+    def get_image(self, obj):
+        image = obj.images.first()
+        if image:
+            request = self.context.get("request")
+            if request:
+                return request.build_absolute_uri(image.image.url)
+            return image.image.url
+        return None
 
     views_count = serializers.SerializerMethodField()
     sales_count = serializers.SerializerMethodField()

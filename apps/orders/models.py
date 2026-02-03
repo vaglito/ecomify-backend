@@ -15,6 +15,7 @@ class Order(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending', verbose_name="Estado")
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Total")
     shipping_address = models.TextField(verbose_name="Dirección de Envío")
+    phone = models.CharField(max_length=20, verbose_name="Teléfono de Contacto")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Creación")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Última Actualización")
 
