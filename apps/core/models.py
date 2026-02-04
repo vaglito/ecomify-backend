@@ -30,3 +30,22 @@ class SiteSetting(models.Model):
 
     def __str__(self):
         return self.site_name
+
+class Banner(models.Model):
+    title = models.CharField(max_length=200, verbose_name="Título", blank=True, null=True)
+    subtitle = models.CharField(max_length=200, verbose_name="Subtítulo", blank=True, null=True)
+    image = models.ImageField(upload_to='banners/', verbose_name="Imagen")
+    
+    cta_text = models.CharField(max_length=50, verbose_name="Texto Botón", blank=True, null=True)
+    cta_link = models.CharField(max_length=200, verbose_name="Enlace Botón", blank=True, null=True)
+    
+    order = models.IntegerField(default=0, verbose_name="Orden de visualización")
+    is_active = models.BooleanField(default=True, verbose_name="Activo")
+
+    class Meta:
+        verbose_name = "Banner"
+        verbose_name_plural = "Banners"
+        ordering = ['order', '-id']
+
+    def __str__(self):
+        return self.title or f"Banner {self.id}"
