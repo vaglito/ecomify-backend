@@ -15,7 +15,4 @@ class ClaimViewSet(viewsets.ModelViewSet):
     authentication_classes = []  # Explicitly disable authentication
     permission_classes = [permissions.AllowAny]  # Explicitly allow any user
 
-    def get_permissions(self):
-        if self.request.method == 'POST':
-            return [permissions.AllowAny()]
-        return [permissions.IsAdminUser()] # Only admin can list for now for privacy
+
