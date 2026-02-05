@@ -12,6 +12,9 @@ class ClaimViewSet(viewsets.ModelViewSet):
     serializer_class = ClaimSerializer
     parser_classes = (MultiPartParser, FormParser) # For file upload
 
+    authentication_classes = []  # Explicitly disable authentication
+    permission_classes = [permissions.AllowAny]  # Explicitly allow any user
+
     def get_permissions(self):
         if self.request.method == 'POST':
             return [permissions.AllowAny()]
