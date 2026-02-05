@@ -13,6 +13,6 @@ class ClaimViewSet(viewsets.ModelViewSet):
     parser_classes = (MultiPartParser, FormParser) # For file upload
 
     def get_permissions(self):
-        if self.action == 'create':
+        if self.request.method == 'POST':
             return [permissions.AllowAny()]
         return [permissions.IsAdminUser()] # Only admin can list for now for privacy
