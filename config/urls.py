@@ -27,8 +27,14 @@ urlpatterns = [
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
+    path("jet/", include("jet.urls", "jet")),
     path("admin/", admin.site.urls),
     path("api/auth/", include("apps.users.urls")),
+    path("api/products/", include("apps.products.urls")),
+    path("api/orders/", include("apps.orders.urls")),
+    path("api/payments/", include("apps.payments.urls")),
+    path("api/core/", include("apps.core.urls")),
+    path("api/claims/", include("apps.claims.urls")),
 ]
 
 if settings.DEBUG:

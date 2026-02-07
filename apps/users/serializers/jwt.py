@@ -22,6 +22,8 @@ class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
         data["user"] = {
             "id": user.id,
             "email": user.email,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
             "is_admin": user.is_admin,
             "is_customer": user.is_customer,
             "is_staff_user": user.is_staff_user,
