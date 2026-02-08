@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <style>
         .button {
@@ -17,12 +18,14 @@
         }
     </style>
 </head>
+
 <body>
-    <h1>Bienvenido a Ecomify, {{ user.first_name }}!</h1>
+    <h1>Bienvenido a Conexiondigitaljs, {{ user.first_name }}!</h1>
     <p>Gracias por registrarte. Por favor, verifica tu correo electrónico haciendo clic en el siguiente botón:</p>
     <a href="{{ verification_url }}" class="button" style="color: white;">Verificar mi cuenta</a>
     <p>Si el botón no funciona, copia y pega el siguiente enlace en tu navegador:</p>
     <p>{{ verification_url }}</p>
     <p>Este enlace expirará en 24 horas.</p>
 </body>
+
 </html>
