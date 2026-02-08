@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #22c55e;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .success-msg {
+            font-size: 1.125rem;
+            font-weight: bold;
+            color: #22c55e;
+        }
+
+        .footer {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>¡Tu pago ha sido verificado!</h2>
+        </div>
+        <p>Hola {{ order.user.first_name }},</p>
+        <p class="success-msg">¡Buenas noticias! Tu pago para el pedido #{{ order.id }} ha sido verificado
+            satisfactoriamente.</p>
+
+        <p>Tu pedido ahora está <strong>listo para recoger o en camino a ser enviado</strong>. Recibirás más información
+            pronto sobre los detalles del envío o la dirección de recojo.</p>
+
+        <p>¡Gracias por tu compra!</p>
+
+        <div class="footer">
+            &copy; 2026 Ecomify. Todos los derechos reservados.
+        </div>
+    </div>
+</body>
+
+</html>

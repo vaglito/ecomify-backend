@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #ef4444;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .order-id {
+            font-weight: bold;
+            color: #ef4444;
+        }
+
+        .total {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .footer {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>¡Tu pedido ha sido recibido!</h2>
+        </div>
+        <p>Hola {{ order.user.first_name }},</p>
+        <p>Gracias por comprar en <strong>Ecomify</strong>. Hemos recibido tu pedido con éxito y estamos esperando la
+            confirmación de tu pago.</p>
+
+        <p>ID del pedido: <span class="order-id">#{{ order.id }}</span></p>
+
+        <div class="total">
+            Total a pagar: ${{ order.total_amount }}
+        </div>
+
+        <p>Si realizas el pago mediante transferencia o depósito, recuerda subir tu comprobante en la sección de "Mis
+            Compras" en nuestra web para agilizar el proceso.</p>
+
+        <p>¡Gracias por confiar en nosotros!</p>
+
+        <div class="footer">
+            &copy; 2026 Ecomify. Todos los derechos reservados.
+        </div>
+    </div>
+</body>
+
+</html>

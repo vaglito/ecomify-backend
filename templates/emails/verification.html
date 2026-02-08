@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .button {
+            background-color: #ef4444;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bienvenido a Ecomify, {{ user.first_name }}!</h1>
+    <p>Gracias por registrarte. Por favor, verifica tu correo electrónico haciendo clic en el siguiente botón:</p>
+    <a href="{{ verification_url }}" class="button" style="color: white;">Verificar mi cuenta</a>
+    <p>Si el botón no funciona, copia y pega el siguiente enlace en tu navegador:</p>
+    <p>{{ verification_url }}</p>
+    <p>Este enlace expirará en 24 horas.</p>
+</body>
+</html>
