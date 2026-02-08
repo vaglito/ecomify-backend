@@ -72,6 +72,16 @@ class OrderViewSet(viewsets.ModelViewSet):
                 
                 # Return the full order representation
                 result_serializer = OrderSerializer(order)
+                
+                # Send order success email
+                from apps.core.utils.emails import send_html_email
+                send_html_email(
+                    subject=f"Confirmación de Pedido #{order.id} - Ecomify",
+                    template_name="emails/order_success.html",
+                    context={"order": order},
+                    to_email=request.user.email
+                )
+                
                 return Response(result_serializer.data, status=status.HTTP_201_CREATED)
                 
         except ValueError as e:

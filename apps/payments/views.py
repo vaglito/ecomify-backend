@@ -18,7 +18,13 @@ class PaymentViewSet(viewsets.ModelViewSet):
         return PaymentSerializer
 
     def perform_create(self, serializer):
-        # The logic is handled in Serializer.create() but we could add post-creation logic here
-        # For example, sending an email notification to admin
         payment = serializer.save()
-        # Update order status? For now we keep it separated.
+        
+        # Send payment pending email
+        from apps.core.utils.emails import send_html_email
+        send_html_email(
+            subject=f"Comprobante recibido - Orden #{payment.order.id}",
+            template_name="emails/payment_pending.html",
+            context={"payment": payment},
+            to_email=self.request.user.email
+        )
