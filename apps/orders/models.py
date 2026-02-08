@@ -25,7 +25,10 @@ class Order(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"Orden #{self.id} - {self.user}"
+        try:
+            return f"Orden #{self.id} - {self.user}"
+        except Exception:
+            return f"Orden #{self.id} (Usuario no encontrado)"
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items', verbose_name="Orden")

@@ -7,8 +7,9 @@ from .models import Payment
 class PaymentAdmin(admin.ModelAdmin):
     list_display = ('id', 'order', 'amount', 'transaction_code', 'status', 'created_at', 'verified_by', 'preview_voucher')
     list_filter = ('status', 'created_at', 'verified_by')
-    search_fields = ('transaction_code', 'order__id', 'order__user__username', 'order__user__email', 'order__user__first_name', 'order__user__last_name')
+    search_fields = ('transaction_code', 'order__id', 'order__user__email', 'order__user__first_name', 'order__user__last_name')
     readonly_fields = ('created_at', 'verified_at', 'verified_by', 'preview_voucher')
+    raw_id_fields = ('order',)
     actions = ['verify_payment', 'reject_payment']
 
     def preview_voucher(self, obj):

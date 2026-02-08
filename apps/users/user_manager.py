@@ -10,8 +10,9 @@ class UserManager(BaseUserManager):
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
-        customer_group = Group.objects.get(name="customer")
         user.save(using=self._db)
+        
+        customer_group, _ = Group.objects.get_or_create(name="customer")
         user.groups.add(customer_group)
         return user
 
@@ -19,6 +20,7 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
         user = self.create_user(email, password, **extra_fields)
-        admin_group = Group.objects.get(name="admin")
+        
+        admin_group, _ = Group.objects.get_or_create(name="admin")
         user.groups.add(admin_group)
         return user
