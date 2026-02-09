@@ -15,7 +15,17 @@ class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
         )
 
         if not user:
-            raise AuthenticationFailed("invalid credentials")
+            # Check if user exists but is inactive
+            from django.contrib.auth import get_user_model
+            User = get_user_model()
+            try:
+                check_user = User.objects.get(email=email)
+                if not check_user.is_active:
+                    raise AuthenticationFailed("user_inactive")
+            except User.DoesNotExist:
+                pass
+            
+            raise AuthenticationFailed("invalid_credentials")
 
         data = super().validate(attrs)
 

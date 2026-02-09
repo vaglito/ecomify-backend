@@ -154,7 +154,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
-DEFAULT_FROM_EMAIL = f"Ecomify <{EMAIL_HOST_USER}>"
+DEFAULT_FROM_EMAIL = f"Conexiondigitaljs <{EMAIL_HOST_USER}>"
 
 # Frontend URL for email links
 FRONTEND_URL = config("FRONTEND_URL", default="http://localhost:3000")
